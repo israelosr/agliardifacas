@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Faca Campeira em Aço Carbono",
+    "price": "R$ 450,00",
+    "image": "imagens/imagem_fundo_site.png",
+    "link": "https://wa.me"
+  },
+  {
+    "title": "Adaga de Caça Artesanal",
+    "price": "R$ 580,00",
+    "image": "imagens/imagem_fundo_site.png",
+    "link": "https://wa.me"
+  }
+]

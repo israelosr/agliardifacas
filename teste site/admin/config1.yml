@@ -1,0 +1,18 @@
+backend:
+  name: git-gateway
+  branch: main # Ou a branch que você usa
+
+media_folder: "imagens" # Onde as fotos novas serão salvas
+public_folder: "imagens"
+
+collections:
+  - name: "catalogo"
+    label: "Catálogo de Facas"
+    folder: "data/facas" # Onde os dados serão salvos (em arquivos .json ou .md)
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Nome da Faca", name: "title", widget: "string" }
+      - { label: "Preço", name: "price", widget: "string" }
+      - { label: "Foto", name: "image", widget: "image" }
+      - { label: "Descrição", name: "body", widget: "markdown" }
