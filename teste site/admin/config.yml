@@ -1,4 +1,4 @@
-local_backend: true # Adicione esta linha para teste local
+#local_backend: true # Adicione esta linha para teste local
 backend:
   name: git-gateway
   branch: main
