@@ -172,7 +172,7 @@
         async function carregarCatalogoCompleto() {
             const container = document.getElementById('grid-catalogo-completo');
             try {
-                const response = await fetch('./data/produtos.json');
+                const response = await fetch('/data/produtos.json');
                 //const produtos = await response.json();
                 const data = await response.json();
 				const produtos = data.produtos; // Acessa a lista dentro do arquivo
