@@ -1,0 +1,30 @@
+local_backend: true # Adicione esta linha para teste local
+backend:
+  name: git-gateway
+  branch: main
+# ... restante do código igual
+
+
+media_folder: "imagens" # Onde as fotos enviadas pelo painel serão salvas
+public_folder: "imagens"
+
+collections:
+  - name: "configuracoes"
+    label: "Gerenciar Catálogo"
+    delete: false # Impede deletar o arquivo por engano
+    editor:
+      preview: false
+    files:
+      - name: "lista_produtos"
+        label: "Lista de Facas"
+        file: "data/produtos.json" # O arquivo que o CMS vai ler e escrever
+        fields:
+          - label: "Facas Disponíveis"
+            name: "produtos"
+            widget: "list" # Cria uma lista que você pode ordenar e adicionar itens
+            summary: '{{title}}'
+            fields:
+              - { label: "Nome da Faca", name: "title", widget: "string" }
+              - { label: "Preço", name: "price", widget: "string" }
+              - { label: "Foto", name: "image", widget: "image" }
+              - { label: "Link do WhatsApp", name: "link", widget: "string" }

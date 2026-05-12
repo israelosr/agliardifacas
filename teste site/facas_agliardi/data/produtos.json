@@ -1,0 +1,27 @@
+[
+  {
+    "title": "Faca Campeira em Aço Inox",
+    "price": "R$ 450,00",
+    "image": "imagens/picanheira.jpeg",
+    "link": "https://wa.me/5551982114577"
+  },
+  {
+    "title": "Cutelo em Disco de Arado",
+    "price": "R$ 580,00",
+    "image": "imagens/cutelo.jpeg",
+    "link": "https://wa.me/5551982114577"
+  },
+  {
+    "title": "Pequena em Disco de Arado",
+    "price": "R$ 380,00",
+    "image": "imagens/pequena.jpeg",
+    "link": "https://wa.me/5551982114577"
+  },
+  {
+    "title": "Lingua de Chimango Inox",
+    "price": "R$ 380,00",
+    "image": "imagens/lingua_chimango_madeira.jpeg",
+    "link": "https://wa.me/5551982114577"
+  }
+  
+]

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- Use o mesmo Head do seu index.html para manter fontes e Tailwind -->
+</head>
+<body class="bg-brand-black text-gray-200">
+    <!-- Navbar (Copie a do index.html) -->
+
+    <section class="py-32 bg-brand-black">
+        <div class="max-w-7xl mx-auto px-6">
+            <h1 class="font-serif text-5xl text-white mb-4 text-center">Coleção Completa</h1>
+            <p class="text-gold text-center mb-16 tracking-widest">PEÇAS ÚNICAS E EXCLUSIVAS</p>
+
+            <!-- O Grid onde aparecerão todas as facas -->
+            <div id="grid-catalogo-completo" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- O JavaScript vai preencher aqui -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Copie o do index.html) -->
+
+    <script>
+        // Script para carregar os mesmos dados (ou um arquivo json maior se preferir)
+        async function carregarCatalogoCompleto() {
+            const container = document.getElementById('grid-catalogo-completo');
+            try {
+                const response = await fetch('./data/produtos.json');
+                const produtos = await response.json();
+                
+                container.innerHTML = produtos.map(faca => `
+                    <div class="group bg-brand-charcoal rounded-xl overflow-hidden border border-white/5 hover:border-gold/30 transition-all duration-500">
+                        <div class="relative overflow-hidden h-72">
+                            <img src="${faca.image}" alt="${faca.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded text-gold text-xs">Artesanal</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-serif text-2xl text-white mb-2">${faca.title}</h3>
+                            <p class="text-gold font-bold text-xl mb-4">${faca.price}</p>
+                            <a href="${faca.link}" class="block w-full text-center bg-transparent border border-gold text-gold py-3 rounded-full hover:bg-gold hover:text-black transition-colors font-bold uppercase tracking-widest text-xs">
+                                Consultar Disponibilidade
+                            </a>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error("Erro:", error);
+            }
+        }
+        document.addEventListener('DOMContentLoaded', carregarCatalogoCompleto);
+    </script>
+</body>
+</html>
