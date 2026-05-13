@@ -169,20 +169,52 @@
 
     <script>
         // Script para carregar os mesmos dados (ou um arquivo json maior se preferir)
-        async function carregarCatalogoCompleto() {
-            const container = document.getElementById('grid-catalogo-completo');
-            try {
-                const response = await fetch('/data/produtos.json');
+        //async function carregarCatalogoCompleto() {
+            //const container = document.getElementById('grid-catalogo-completo');
+            //try {
+                //const response = await fetch('/data/produtos.json');
                 //const produtos = await response.json();
                 //const data = await response.json();
 				//const produtos = data.produtos; // Acessa a lista dentro do arquivo
-				const data = await response.json();
-				const produtos = data.produtos; // Aqui acessamos a lista dentro do objeto
+				//const data = await response.json();
+				//const produtos = data.produtos; // Aqui acessamos a lista dentro do objeto
 
-				if (!produtos) {
-					container.innerHTML = '<p class="text-white">Nenhum produto encontrado.</p>';
-				return;
-				}
+				//if (!produtos) {
+					//container.innerHTML = '<p class="text-white">Nenhum produto encontrado.</p>';
+				//return;
+				//}
+				async function carregarCatalogo() {
+    const container = document.getElementById('grid-catalogo');
+    try {
+        const response = await fetch('./data/produtos.json');
+        const data = await response.json(); // Lemos o objeto completo
+
+        // O segredo está aqui: acessamos a propriedade 'produtos' que o CMS criou
+        const listaOriginal = data.produtos || []; 
+        const destaques = listaOriginal.slice(0, 3);
+
+        if (destaques.length === 0) {
+            container.innerHTML = '<p class="text-white text-center col-span-full">Novas peças em breve.</p>';
+            return;
+        }
+
+        container.innerHTML = destaques.map(faca => `
+            <div class="group bg-brand-charcoal p-4 rounded-xl border border-white/5 hover:border-gold/50 transition-all">
+                <div class="overflow-hidden rounded-lg mb-4">
+                    <img src="${faca.image}" alt="${faca.title}" class="w-full h-64 object-cover group-hover:scale-110 transition-all duration-500">
+                </div>
+                <h3 class="font-serif text-xl text-white">${faca.title}</h3>
+                <p class="text-gold font-bold mt-2">${faca.price}</p>
+                <a href="${faca.link}" class="block mt-4 text-center border border-gold/30 py-2 rounded-full text-xs uppercase tracking-widest hover:bg-gold hover:text-black transition">
+                    Encomendar
+                </a>
+            </div>
+        `).join('');
+    } catch (error) {
+        console.error("Erro ao carregar destaques:", error);
+    }
+}
+
 
 
                 container.innerHTML = produtos.map(faca => `
