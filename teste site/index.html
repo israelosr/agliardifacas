@@ -554,22 +554,27 @@
 		//	container.innerHTML = '<p class="text-white">Nenhum produto encontrado.</p>';
 		//return;
 		//}
-		async function carregarCatalogo() {
-    const container = document.getElementById('grid-catalogo');
+		<script>
+async function carregarCatalogo() {
+    const container = document.getElementById('grid-catalogo'); // No catalogo-completo, mude para 'grid-catalogo-completo'
+    if (!container) return;
+
     try {
-        const response = await fetch('/data/produtos.json');
-        const data = await response.json(); // Lemos o objeto completo
+        const response = await fetch('./data/produtos.json');
+        if (!response.ok) throw new Error('Erro ao carregar JSON');
+        
+        const data = await response.json();
+        const lista = Array.isArray(data) ? data : (data.produtos || []);
 
-        // O segredo está aqui: acessamos a propriedade 'produtos' que o CMS criou
-        const listaOriginal = data.produtos || []; 
-        const destaques = listaOriginal.slice(0, 3);
-
-        if (destaques.length === 0) {
-            container.innerHTML = '<p class="text-white text-center col-span-full">Novas peças em breve.</p>';
+        if (lista.length === 0) {
+            container.innerHTML = '<p class="text-white text-center col-span-full">Nenhuma peça encontrada.</p>';
             return;
         }
 
-        container.innerHTML = destaques.map(faca => `
+        // Para o index.html use .slice(0, 3). No catalogo-completo.html remova o .slice(0, 3)
+        const itensParaExibir = window.location.pathname.includes('catalogo') ? lista : lista.slice(0, 3);
+
+        container.innerHTML = itensParaExibir.map(faca => `
             <div class="group bg-brand-charcoal p-4 rounded-xl border border-white/5 hover:border-gold/50 transition-all">
                 <div class="overflow-hidden rounded-lg mb-4">
                     <img src="${faca.image}" alt="${faca.title}" class="w-full h-64 object-cover group-hover:scale-110 transition-all duration-500">
@@ -580,11 +585,17 @@
                     Encomendar
                 </a>
             </div>
-        `).join('');
+        `).join(''); // O erro costuma estar por aqui (parêntese do map + join)
+
     } catch (error) {
-        console.error("Erro ao carregar destaques:", error);
+        console.error("Erro no carregamento:", error);
+        container.innerHTML = '<p class="text-white text-center col-span-full">Erro ao carregar o catálogo.</p>';
     }
 }
+
+document.addEventListener('DOMContentLoaded', carregarCatalogo);
+</script>
+
 
 
 
