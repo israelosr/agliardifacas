@@ -185,7 +185,7 @@
 				//}
 				<script>
 async function carregarCatalogo() {
-    const container = document.getElementById('grid-catalogo'); // No catalogo-completo, mude para 'grid-catalogo-completo'
+    const container = document.getElementById('grid-catalogo-completo'); // No catalogo-completo, mude para 'grid-catalogo-completo'
     if (!container) return;
 
     try {
@@ -201,7 +201,7 @@ async function carregarCatalogo() {
         }
 
         // Para o index.html use .slice(0, 3). No catalogo-completo.html remova o .slice(0, 3)
-        const itensParaExibir = window.location.pathname.includes('catalogo') ? lista : lista.slice(0, 3);
+        const itensParaExibir = window.location.pathname.includes('catalogo') //? lista : lista.slice(0, 3);
 
         container.innerHTML = itensParaExibir.map(faca => `
             <div class="group bg-brand-charcoal p-4 rounded-xl border border-white/5 hover:border-gold/50 transition-all">
