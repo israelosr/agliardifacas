@@ -174,8 +174,16 @@
             try {
                 const response = await fetch('/data/produtos.json');
                 //const produtos = await response.json();
-                const data = await response.json();
-				const produtos = data.produtos; // Acessa a lista dentro do arquivo
+                //const data = await response.json();
+				//const produtos = data.produtos; // Acessa a lista dentro do arquivo
+				const data = await response.json();
+				const produtos = data.produtos; // Aqui acessamos a lista dentro do objeto
+
+				if (!produtos) {
+					container.innerHTML = '<p class="text-white">Nenhum produto encontrado.</p>';
+				return;
+				}
+
 
                 container.innerHTML = produtos.map(faca => `
                     <div class="group bg-brand-charcoal rounded-xl overflow-hidden border border-white/5 hover:border-gold/30 transition-all duration-500">
