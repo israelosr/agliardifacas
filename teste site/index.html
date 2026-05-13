@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-</script>
+  
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -554,7 +554,7 @@
 		//	container.innerHTML = '<p class="text-white">Nenhum produto encontrado.</p>';
 		//return;
 		//}
-		//<script>
+		<script>
 async function carregarCatalogo() {
     const container = document.getElementById('grid-catalogo'); // No catalogo-completo, mude para 'grid-catalogo-completo'
     if (!container) return;
@@ -574,20 +574,18 @@ async function carregarCatalogo() {
         // Para o index.html use .slice(0, 3). No catalogo-completo.html remova o .slice(0, 3)
         const itensParaExibir = window.location.pathname.includes('catalogo') ? lista : lista.slice(0, 3);
 
-       // O erro está aqui: você deve usar ` (crase) e não ' (aspas)
-container.innerHTML = itensParaExibir.map(faca => `
-    <div class="group bg-brand-charcoal p-4 rounded-xl border border-white/5">
-        <div class="overflow-hidden rounded-lg mb-4">
-            <img src="${faca.image}" alt="${faca.title}" class="w-full h-64 object-cover">
-        </div>
-        <h3 class="font-serif text-xl text-white">${faca.title}</h3>
-        <p class="text-gold font-bold mt-2">${faca.price}</p>
-        <a href="${faca.link}" class="block mt-4 text-center border border-gold/30 py-2 rounded-full text-xs uppercase tracking-widest hover:bg-gold hover:text-black transition">
-            Encomendar
-        </a>
-    </div>
-`).join(''); // Fechamento correto
- // O erro costuma estar por aqui (parêntese do map + join)
+        container.innerHTML = itensParaExibir.map(faca => `
+            <div class="group bg-brand-charcoal p-4 rounded-xl border border-white/5 hover:border-gold/50 transition-all">
+                <div class="overflow-hidden rounded-lg mb-4">
+                    <img src="${faca.image}" alt="${faca.title}" class="w-full h-64 object-cover group-hover:scale-110 transition-all duration-500">
+                </div>
+                <h3 class="font-serif text-xl text-white">${faca.title}</h3>
+                <p class="text-gold font-bold mt-2">${faca.price}</p>
+                <a href="${faca.link}" class="block mt-4 text-center border border-gold/30 py-2 rounded-full text-xs uppercase tracking-widest hover:bg-gold hover:text-black transition">
+                    Encomendar
+                </a>
+            </div>
+        `).join(''); // O erro costuma estar por aqui (parêntese do map + join)
 
     } catch (error) {
         console.error("Erro no carregamento:", error);
@@ -596,18 +594,37 @@ container.innerHTML = itensParaExibir.map(faca => `
 }
 
 document.addEventListener('DOMContentLoaded', carregarCatalogo);
-  </script>
-<script>
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", user => {
-      if (!user) {
-        window.netlifyIdentity.on("login", () => {
-          document.location.href = "/admin/";
-        });
-      }
-    });
-  }
 </script>
 
+
+
+
+
+
+        // Pega apenas as 3 primeiras facas do arquivo JSON
+        const destaques = produtos.slice(0, 3);
+
+        container.innerHTML = ''; 
+        destaques.forEach(faca => {
+            container.innerHTML += `
+                <div class="group bg-brand-charcoal p-4 rounded-xl border border-white/5 hover:border-gold/50 transition-all">
+                    <div class="overflow-hidden rounded-lg mb-4">
+                        <img src="${faca.image}" alt="${faca.title}" class="w-full h-64 object-cover group-hover:scale-110 transition-duration-500">
+                    </div>
+                    <h3 class="font-serif text-xl text-white">${faca.title}</h3>
+                    <p class="text-gold font-bold mt-2">${faca.price}</p>
+                    <a href="${faca.link}" class="block mt-4 text-center border border-gold/30 py-2 rounded-full text-xs uppercase tracking-widest hover:bg-gold hover:text-black transition">
+                        Encomendar
+                    </a>
+                </div>
+            `;
+        });
+    } catch (error) {
+        console.error("Erro ao carregar destaques:", error);
+    }
+}
+document.addEventListener('DOMContentLoaded', carregarCatalogo);
+
+  </script>
 </body>
 </html>
